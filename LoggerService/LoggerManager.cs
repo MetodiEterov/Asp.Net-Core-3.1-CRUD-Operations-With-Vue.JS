@@ -1,4 +1,4 @@
-﻿using Entities.Contracts;
+using Entities.Contracts;
 
 using NLog;
 

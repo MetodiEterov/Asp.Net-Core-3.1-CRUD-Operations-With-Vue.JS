@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+using Entities.Models;
 
 namespace Entities.DbContext
 {

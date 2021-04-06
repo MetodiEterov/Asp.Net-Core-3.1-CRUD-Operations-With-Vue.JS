@@ -1,4 +1,4 @@
-﻿namespace Entities.Contracts
+namespace Entities.Contracts
 {
     public interface ILoggerManager
     {
