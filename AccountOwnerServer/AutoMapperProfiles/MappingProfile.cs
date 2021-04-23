@@ -5,6 +5,9 @@ using Entities.Models;
 
 namespace AccountOwnerServer.AutoMapperProfiles
 {
+    /// <summary>
+    /// MappingProfile mapping class
+    /// </summary>
     public class MappingProfile : Profile
     {
         public MappingProfile()

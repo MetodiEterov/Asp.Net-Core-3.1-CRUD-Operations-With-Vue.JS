@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AccountOwnerServer.Controllers
 {
+    /// <summary>
+    /// OwnerController class responisble for handling all requests
+    /// </summary>
     [Route("api/owner")]
     [ApiController]
     public class OwnerController : ControllerBase
@@ -28,16 +31,21 @@ namespace AccountOwnerServer.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// CreateOwner method is responsible for the post requests to the service logic
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateOwner([FromBody] OwnerForCreationDto owner)
         {
-            if(owner == null)
+            if (owner == null)
             {
                 _logger.LogInfo("Owner object sent from client is null.");
                 return BadRequest("Owner object is null");
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _logger.LogError("Invalid owner object sent from client.");
                 return BadRequest("Invalid model object");
@@ -52,17 +60,22 @@ namespace AccountOwnerServer.Controllers
             return CreatedAtRoute("OwnerById", new { id = createdOwner.Id }, createdOwner);
         }
 
+        /// <summary>
+        /// DeleteOwner method is responsible for the delete requests to the service logic
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOwner(Guid id)
         {
             var owner = await _unitOfWork.Owner.GetOwnerByIdAsync(id);
-            if(owner == null)
+            if (owner == null)
             {
                 _logger.LogInfo($"Owner with id: {id}, hasn't been found in db.");
                 return NotFound();
             }
 
-            if(_unitOfWork.Account.AccountsByOwner(id).Any())
+            if (_unitOfWork.Account.AccountsByOwner(id).Any())
             {
                 _logger.LogInfo(
                     $"Cannot delete owner with id: {id}. It has related accounts. Delete those accounts first");
@@ -75,6 +88,10 @@ namespace AccountOwnerServer.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// GetAllOwners method read all owners from the service
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAllOwners()
         {
@@ -88,7 +105,7 @@ namespace AccountOwnerServer.Controllers
         public async Task<IActionResult> GetOwnerById(Guid id)
         {
             var owner = await _unitOfWork.Owner.GetOwnerByIdAsync(id);
-            if(owner == null)
+            if (owner == null)
             {
                 _logger.LogInfo($"Owner with id: {id}, hasn't been found in db.");
                 return NotFound();
@@ -99,11 +116,16 @@ namespace AccountOwnerServer.Controllers
             return Ok(ownerResult);
         }
 
+        /// <summary>
+        /// GetOwnerWithDetails method read details for specific user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}/account")]
         public async Task<IActionResult> GetOwnerWithDetails(Guid id)
         {
             var owner = await _unitOfWork.Owner.GetOwnerWithDetailsAsync(id);
-            if(owner == null)
+            if (owner == null)
             {
                 _logger.LogInfo($"Owner with id: {id}, hasn't been found in db.");
                 return NotFound();
@@ -114,23 +136,29 @@ namespace AccountOwnerServer.Controllers
             return Ok(ownerResult);
         }
 
+        /// <summary>
+        /// UpdateOwner method, update entire record
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="owner"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOwner(Guid id, [FromBody] OwnerForUpdateDto owner)
         {
-            if(owner == null)
+            if (owner == null)
             {
                 _logger.LogInfo("Owner object sent from client is null.");
                 return BadRequest("Owner object is null");
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _logger.LogInfo("Invalid owner object sent from client.");
                 return BadRequest("Invalid model object");
             }
 
             var ownerEntity = await _unitOfWork.Owner.GetOwnerByIdAsync(id);
-            if(ownerEntity == null)
+            if (ownerEntity == null)
             {
                 _logger.LogInfo($"Owner with id: {id}, hasn't been found in db.");
                 return NotFound();

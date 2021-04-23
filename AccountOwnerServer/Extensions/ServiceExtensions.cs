@@ -14,6 +14,9 @@ using Repository.Layer;
 
 namespace AccountOwnerServer.Extensions
 {
+    /// <summary>
+    /// ServiceExtensions static class contains service's registrations
+    /// </summary>
     public static class ServiceExtensions
     {
         public static void ConfigureServicesInjection(this IServiceCollection services, IConfiguration configuration)

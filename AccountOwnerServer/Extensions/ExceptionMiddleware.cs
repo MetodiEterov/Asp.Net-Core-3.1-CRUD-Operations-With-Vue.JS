@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace AccountOwnerServer.Extensions
 {
+    /// <summary>
+    /// ExceptionMiddleware class is responsible for custome error handling
+    /// </summary>
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;

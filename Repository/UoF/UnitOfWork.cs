@@ -5,6 +5,9 @@ using Entities.Contracts;
 
 namespace Repository.Layer
 {
+    /// <summary>
+    /// UnitOfWork class wrapping repository layer's classes
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IAccountRepository _account;
@@ -19,13 +22,23 @@ namespace Repository.Layer
             _ownerMemoryCache = ownerMemoryCache;
         }
 
+        /// <summary>
+        /// SaveAsync method
+        /// </summary>
+        /// <returns></returns>
         public async Task SaveAsync() { await _repoContext.SaveChangesAsync(); }
 
+        /// <summary>
+        /// Account property to access account repository
+        /// </summary>
         public IAccountRepository Account
         {
             get { return (_account == null) ? new AccountRepository(_repoContext) : _account; }
         }
 
+        /// <summary>
+        /// Owner property to access owner repository
+        /// </summary>
         public IOwnerRepository Owner
         {
             get { return (_owner == null) ? new OwnerRepository(_repoContext, _ownerMemoryCache) : _owner; }

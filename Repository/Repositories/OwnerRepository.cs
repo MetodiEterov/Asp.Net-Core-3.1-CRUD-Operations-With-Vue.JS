@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Layer
 {
+    /// <summary>
+    /// OwnerRepository class contains all logic to access DB
+    /// </summary>
     public class OwnerRepository : RepositoryBase<Owner>, IOwnerRepository
     {
         private readonly IOwnerMemoryCache _ownerMemoryCache;
@@ -19,16 +22,39 @@ namespace Repository.Layer
             repositoryContext)
         { _ownerMemoryCache = ownerMemoryCache; }
 
+        /// <summary>
+        /// CreateOwner method
+        /// </summary>
+        /// <param name="owner"></param>
         public void CreateOwner(Owner owner) { Create(owner); }
 
+        /// <summary>
+        /// DeleteOwner method
+        /// </summary>
+        /// <param name="owner"></param>
         public void DeleteOwner(Owner owner) { Delete(owner); }
 
+        /// <summary>
+        /// GetAllOwnersAsync method
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Owner>> GetAllOwnersAsync()
         { return await FindAll().OrderBy(ow => ow.Name).ToListAsync(); }
 
+        /// <summary>
+        /// GetOwnerByIdAsync
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <returns></returns>
         public async Task<Owner> GetOwnerByIdAsync(Guid ownerId)
         { return await FindByCondition(owner => owner.Id.Equals(ownerId)).FirstOrDefaultAsync(); }
 
+        /// <summary>
+        /// GetOwners method
+        /// </summary>
+        /// <param name="ownerParameters"></param>
+        /// <param name="isCacheIgnored"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Owner>> GetOwners(OwnerParameters ownerParameters, bool isCacheIgnored = false)
         {
             // return the cached owners if there is an entry in the memory cache
@@ -52,6 +78,11 @@ namespace Repository.Layer
             return result;
         }
 
+        /// <summary>
+        /// GetOwnerWithDetailsAsync method
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <returns></returns>
         public async Task<Owner> GetOwnerWithDetailsAsync(Guid ownerId)
         {
             return await FindByCondition(owner => owner.Id.Equals(ownerId))
@@ -59,6 +90,10 @@ namespace Repository.Layer
                 .FirstOrDefaultAsync();
         }
 
+        /// <summary>
+        /// UpdateOwner method
+        /// </summary>
+        /// <param name="owner"></param>
         public void UpdateOwner(Owner owner) { Update(owner); }
     }
 }

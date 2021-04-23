@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Layer
 {
+    /// <summary>
+    /// RepositoryBase generic abstraction class
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class RepositoryBase<T> : IRepositoryBase<T>
         where T : class
     {

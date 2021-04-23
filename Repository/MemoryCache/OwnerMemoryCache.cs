@@ -9,6 +9,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Repository.Layer
 {
+    /// <summary>
+    /// OwnerMemoryCache class is an implentation of IOwnerMemoryCache interface
+    /// Provides in memory caching for the service
+    /// </summary>
     public class OwnerMemoryCache : IOwnerMemoryCache
     {
         private MemoryCacheEntryOptions _cacheExpirationOptions;
@@ -22,6 +26,10 @@ namespace Repository.Layer
             _ownersCache = memoryCache;
         }
 
+        /// <summary>
+        /// GetOwnerMemoryCache method gets all owners from the cache, if there are
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Owner> GetOwnerMemoryCache()
         {
             if(_ownersCache != null && _ownersCache.TryGetValue(_keyEntry, out IEnumerable<Owner> obj))
@@ -30,6 +38,10 @@ namespace Repository.Layer
             return null;
         }
 
+        /// <summary>
+        /// SetOwnerMemoryCache method stores all owners to memory cache
+        /// </summary>
+        /// <param name="owners"></param>
         public void SetOwnerMemoryCache(IEnumerable<Owner> owners)
         {
             if(owners != null)

@@ -4,6 +4,10 @@ using System.Linq.Expressions;
 
 namespace Entities.Contracts
 {
+    /// <summary>
+    /// IRepositoryBase generic interface
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRepositoryBase<T>
     {
         void Create(T entity);
