@@ -14,6 +14,9 @@ using NLog;
 
 namespace AccountOwnerServer
 {
+    /// <summary>
+    /// Startup class
+    /// </summary>
     public class Startup
     {
         public Startup()
@@ -21,9 +24,20 @@ namespace AccountOwnerServer
 
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// ConfigureServices method
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
-        { services.ConfigureServicesInjection(Configuration); }
+        { 
+            services.ConfigureServicesInjection(Configuration); 
+        }
 
+        /// <summary>
+        /// Configure method
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if(env.IsDevelopment())

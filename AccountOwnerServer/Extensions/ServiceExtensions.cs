@@ -19,6 +19,11 @@ namespace AccountOwnerServer.Extensions
     /// </summary>
     public static class ServiceExtensions
     {
+        /// <summary>
+        /// ConfigureServicesInjection method
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void ConfigureServicesInjection(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAutoMapper(typeof(Startup));

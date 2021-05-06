@@ -10,6 +10,9 @@ namespace AccountOwnerServer.AutoMapperProfiles
     /// </summary>
     public class MappingProfile : Profile
     {
+        /// <summary>
+        /// MappingProfile method
+        /// </summary>
         public MappingProfile()
         {
             CreateMap<Owner, OwnerDto>();

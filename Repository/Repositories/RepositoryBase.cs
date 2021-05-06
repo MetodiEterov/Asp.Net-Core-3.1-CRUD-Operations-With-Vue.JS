@@ -13,22 +13,59 @@ namespace Repository.Layer
     /// RepositoryBase generic abstraction class
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class RepositoryBase<T> : IRepositoryBase<T>
-        where T : class
+    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        public RepositoryBase(RepositoryContext repositoryContext) { this.RepositoryContext = repositoryContext; }
-
         protected RepositoryContext RepositoryContext { get; set; }
 
-        public void Create(T entity) { this.RepositoryContext.Set<T>().Add(entity); }
+        public RepositoryBase(RepositoryContext repositoryContext)
+        {
+            this.RepositoryContext = repositoryContext;
+        }
 
-        public void Delete(T entity) { this.RepositoryContext.Set<T>().Remove(entity); }
+        /// <summary>
+        /// Create method
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Create(T entity)
+        {
+            this.RepositoryContext.Set<T>().Add(entity);
+        }
 
-        public IQueryable<T> FindAll() { return this.RepositoryContext.Set<T>().AsNoTracking(); }
+        /// <summary>
+        /// Delete method
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Delete(T entity)
+        {
+            this.RepositoryContext.Set<T>().Remove(entity);
+        }
 
+        /// <summary>
+        /// FindAll method
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<T> FindAll()
+        {
+            return this.RepositoryContext.Set<T>().AsNoTracking();
+        }
+
+        /// <summary>
+        /// FindByCondition method
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
-        { return this.RepositoryContext.Set<T>().Where(expression).AsNoTracking(); }
+        {
+            return this.RepositoryContext.Set<T>().Where(expression).AsNoTracking();
+        }
 
-        public void Update(T entity) { this.RepositoryContext.Set<T>().Update(entity); }
+        /// <summary>
+        /// Update method
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Update(T entity)
+        {
+            this.RepositoryContext.Set<T>().Update(entity);
+        }
     }
 }

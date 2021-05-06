@@ -23,6 +23,11 @@ namespace AccountOwnerServer.Extensions
             _next = next;
         }
 
+        /// <summary>
+        /// InvokeAsync method
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
@@ -35,6 +40,12 @@ namespace AccountOwnerServer.Extensions
             }
         }
 
+        /// <summary>
+        /// HandleExceptionAsync method
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";

@@ -17,7 +17,7 @@ namespace Repository.Layer
     {
         private MemoryCacheEntryOptions _cacheExpirationOptions;
         private readonly int _defaultCacheExpirationTime;
-        private readonly string _keyEntry = "OwnersCache";
+        private readonly string _keyEntry = "OwnerCache";
         private readonly IMemoryCache _ownersCache;
 
         public OwnerMemoryCache(IMemoryCache memoryCache, IConfiguration configuration)
